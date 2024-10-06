@@ -233,3 +233,46 @@ export function App() {
 }
 
 
+// ? Tokenization
+// produto em 102234, 12233
+// ------- -- ------ -- ----
+// [0]     [1] [2] [3] [4]
+// PARAM('produto') IN VALUE('102234'), COMMA, VALUE('12233')
+
+// produto é 102234 e categoria em 12345, 1234, 1233 e preço maior que 1000 e produto não é 12233
+// ------- -- ------ -- -------- -- ------- -- ------ -- ---- -- ----- ---- -- ------- --- ------
+// [0]     [1] [2] [3] [4]      [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18]
+// PARAM('produto') EQ VALUE('102234')
+// AND 
+// PARAM('categoria') IN VALUE('12345') COMMA  VALUE('1234') COMMA VALUE('1233')
+// AND 
+// PARAM('preço') GT VALUE('1000')
+// AND
+// PARAM('produto') NEQ VALUE('12233')
+
+// ? Parsing
+// produto é 102234 e categoria em 12345, 1234, 1233 e preço maior que 1000 e produto não é 12233
+// AND
+//   EQ
+//     PARAM('produto')
+//     VALUE('102234')
+// AND
+//   IN
+//     PARAM('categoria')
+//     VALUE('12345') COMMA VALUE('1234') COMMA VALUE('1233')
+// AND
+//   GT
+//     PARAM('preço')
+//     VALUE('1000')
+// AND
+//   NEQ
+//     PARAM('produto')
+//     VALUE('12233')
+
+// ? Custom Tokens
+// produto em 102234, 12233
+// ------- -- ------ -- ----
+// [0]     [1] [2] [3] [4]
+// PARAM('produto') IN VALUE('102234'), COMMA, VALUE('12233')
+// - Validar que o parametro é um produto
+// - Validar que os valores são códigos de produtos válidos
